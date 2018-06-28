@@ -1,0 +1,17 @@
+version: '2'
+services: 
+  mysql: 
+    image: mysql:5.6.27
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/dump.sql
+  node: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on: 
+      - mysql
+    ports:
+      - "3000:3000"

@@ -3,8 +3,21 @@ const cors = require('kcors')
 const koaBody = require('koa-body')
 const router = require('./controllers')
 const middleware = require('./middleware/response')
+const db = require('./models/index')
+
+
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 const app = new Koa()
+app.context.db = db.sequelize
+
 
 app.use(cors()) // set cors
 app.use(koaBody({ formLimit: '5mb', multipart: true })) // set koa-body limit file 5mb
