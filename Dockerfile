@@ -5,4 +5,12 @@ COPY ./package.json /work/package.json
 COPY ./package-lock.json /work/package-lock.json
 RUN npm install
 COPY . /work
-CMD ["npm", "run", "dev"]
+RUN mv /work/.env /work/.env
+
+# ENTRYPOINT ./docker-entrypoint.sh
+
+# CMD ["sleep", "2000"]
+
+# CMD sleep 3000 ; npm run start
+
+# CMD ["npm", "run", "start"]

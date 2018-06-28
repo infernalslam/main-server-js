@@ -5,12 +5,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db
+    ports:
+      - "3306:3306"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/dump.sql
   node: 
     build:
       context: .
       dockerfile: Dockerfile
+    command: "sleep 100 && npm run start"
     depends_on: 
       - mysql
     ports:
