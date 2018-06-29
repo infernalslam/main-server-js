@@ -3,7 +3,10 @@ const accountController = {
     ctx.body = 'ok post get account'
   }, 
   async postAccount (ctx) {
-    ctx.body = 'ok post'
+    const { form } = ctx.request.body
+    console.log(form)
+    const account = await ctx.db.models.account.create(form)
+    ctx.body = account
   }
 }
 
